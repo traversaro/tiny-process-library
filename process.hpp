@@ -19,7 +19,11 @@ public:
 #ifdef _WIN32
   typedef unsigned long id_type; //Process id type
   typedef void *fd_type;         //File descriptor type
-#ifdef UNICODE
+// In conda-forge, we are building the library without UNICODE support,
+// so we hardcode the non-UNICODE interface to ensure that the downstream
+// compilation unit always "see" the std::string API even if they are compiled
+// with UNICODE defined
+#if 0
   typedef std::wstring string_type;
 #else
   typedef std::string string_type;
